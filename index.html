@@ -9,10 +9,17 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="board">
+    <div class="creator">
+      <label>Name of first (X) player?</label>
+      <input id="name1" />
+      <label>Name of second (O) player?</label>
+      <input id="name2" />
+      <button id="start">Start!</button>
+    </div>
+    <div class="board hidden">
       <div class="display">
-          <p id="turn"></p>
-          <p id="win"></p>
+        <p id="turn"></p>
+        <p id="win"></p>
       </div>
       <button data-id="0"></button>
       <button data-id="1"></button>
@@ -23,6 +30,7 @@
       <button data-id="6"></button>
       <button data-id="7"></button>
       <button data-id="8"></button>
+      <button id="restart">Restart</button>
     </div>
   </body>
 </html>

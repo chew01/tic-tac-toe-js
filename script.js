@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-  const _buttons = document.querySelectorAll("button");
+  const _buttons = document.querySelectorAll(".board button");
   const _gameBoardGrid = Array.from(_buttons);
 
   function _buttonClicked() {
@@ -31,14 +31,32 @@ const playerFactory = (type) => {
   return { type };
 };
 
+const name1 = document.querySelector("#name1");
+const name2 = document.querySelector("#name2");
+
+const startGame = () => {
+  const inputScene = document.querySelector(".creator");
+  const gameScene = document.querySelector(".board");
+
+  if (name1.value.length === 0 || name2.value.length === 0) {
+    alert("Name cannot be empty!");
+    return;
+  }
+  inputScene.classList.add("hidden");
+  gameScene.classList.remove("hidden");
+};
+
 const player1 = playerFactory("X");
 const player2 = playerFactory("O");
+
+const startButton = document.querySelector("#start");
+startButton.addEventListener("click", startGame);
 
 const gameLogic = (() => {
   let _turn = player1.type;
   const _turnDisplay = document.querySelector("#turn");
+  const _winDisplay = document.querySelector("#win");
   _turnDisplay.textContent = `Current turn: ${_turn}`;
-  const winDisplay = document.querySelector("#win");
 
   const changeTurn = () => {
     if (_turn === player1.type) {
@@ -54,15 +72,15 @@ const gameLogic = (() => {
   };
 
   const _player1Win = () => {
-    winDisplay.textContent = `Player ${player1.type} wins!`;
+    _winDisplay.textContent = `Player ${name1.value} wins!`;
   };
 
   const _player2Win = () => {
-    winDisplay.textContent = `Player ${player2.type} wins!`;
+    _winDisplay.textContent = `Player ${name2.value} wins!`;
   };
 
   const _draw = () => {
-    winDisplay.textContent = `Draw!`;
+    _winDisplay.textContent = `Draw!`;
   };
 
   const checkWin = () => {
@@ -202,5 +220,17 @@ const gameLogic = (() => {
     return true;
   };
 
-  return { changeTurn, getTurn, checkWin };
+  const restartGame = () => {
+      for (let i = 0; i < 9; i++) {
+          gameBoard.setGrid("", i);
+      }
+      _turn = player1.type;
+      _turnDisplay.textContent = `Current turn: ${_turn}`;
+      _winDisplay.textContent = "";
+  }
+
+  return { changeTurn, getTurn, checkWin, restartGame };
 })();
+
+const restartButton = document.querySelector("#restart");
+restartButton.addEventListener("click", gameLogic.restartGame);
