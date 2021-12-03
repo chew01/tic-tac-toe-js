@@ -1,0 +1,16 @@
+.board {
+  display: grid;
+  grid-template: repeat(4, 150px) / repeat(3, 150px);
+  
+}
+
+.display {
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+}
+
+button {
+  width: 150px;
+  height: 150px;
+  box-sizing: border-box;
+}
